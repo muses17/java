@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<h:head>
+
+	<f:facet name="first">
+		<meta http-equiv="X-UA-Compatible" content="EmulateIE8" />
+		<meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+		<title>${pageTitle}</title>
+	</f:facet>
+	<h:outputStylesheet library="css" name="css.css" />
+	<h:outputStylesheet library="css" name="theme.css" />
+	<ui:insert name="head"></ui:insert>
+</h:head>
+
+
+<h:body>
+
+	<div id="page" style="margin: 20px; width: 800px;">
+	
+		<div id="header"></div>
+		
+		<div id="menu" style="float: left;">
+			<ui:insert name="header">
+				<ui:include src="/resources/templates/menu.xhtml" />
+			</ui:insert>
+		</div>
+		
+		<div id="content" style="float: left; width: 100%">
+			<ui:insert name="content">
+				<ui:insert name="pageContent"></ui:insert>
+			</ui:insert>
+		</div>
+		
+	</div>
+	
+</h:body>
+</html>

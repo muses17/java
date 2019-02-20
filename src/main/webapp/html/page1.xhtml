@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/resources/templates/layout.xhtml">
+	
+	<ui:param name="pageTitle" value="Test1" />
+	<ui:define name="content">
+		<h:form id="kisiForm">
+			<p:growl id="growl" showDetail="true" autoUpdate="true" sticky="true" />
+			<p:panel id="panel" header="Test">
+
+				<p:panelGrid id="kisiListPanel" layout="grid" columns="1"
+					style="width:100%; border: none;  margin-top: 50px;margin-bottom: 50px"
+					styleClass="gridBorderNone">
+					<f:facet name="header">
+						<p:row>
+							<p:column>
+								<p:outputLabel
+									value="Panel Grid Header" />
+							</p:column>
+						</p:row>
+					</f:facet>
+					<p:dataTable var="kisi" id="kisiTable" widgetVar="kisiTableW"
+						value="#{kisiController.kisiList}" paginator="true"
+						paginatorPosition="bottom" rows="5" emptyMessage="Kayıt Yok"
+						paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+						<p:column headerText="Ad">
+							<h:outputText value="#{kisi.ad}" />
+						</p:column>
+						<p:column headerText="Soyad" sortable="false">
+							<h:outputText value="#{kisi.soyad}" />
+						</p:column>
+						<p:column headerText="" sortable="false">
+							<p:commandButton id="btnKisiSil" icon="fa fa-plus"
+						value="Kisi Sil" ajax="true" resetValues="true" 
+						 actionListener="#{kisiController.kisiSil" />
+						</p:column>
+					</p:dataTable>
+				</p:panelGrid>
+				<p:outputPanel style="display:block; text-align:left">
+					<p:commandButton id="btnKisiEkle" icon="fa fa-plus"
+						value="Kişi Ekle" ajax="true" resetValues="true"
+						 actionListener="#{kisiController.kisiEkle}" />
+				</p:outputPanel>
+			</p:panel>
+			
+			<p:dialog widgetVar="kisiEkleW" id="kisiEkle" position="center center"
+			onShow="PF('kisiEkleW').initPosition()" resizable="false"
+			dynamic="true" responsive="true" modal="true" width="630px"
+			height="50%" closable="false">
+			<f:facet name="header">
+				<h:outputText value="Kisi" />
+			</f:facet>	
+				<p:panelGrid id="kisiEklePanelGrid" style="width: 610px !important">
+					<p:row>
+						<p:column style="width: 80px">
+							<p:outputLabel for="ad" value="Ad"
+								style="font-weight:bold; font-size:8px;" />
+						</p:column>
+						<p:column colspan="2">
+							<p:inputText id="ad" required="false"
+								style="width: 100%;font-weight:bold;"
+								validatorMessage="Lütfen ad giriniz."
+								value="#{kisiController.kisi.ad}">
+							</p:inputText>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column style="width: 80px">
+							<p:outputLabel for="soyad" value="Soyad"
+								style="font-weight:bold; font-size:8px;" />
+						</p:column>
+						<p:column colspan="2">
+							<p:inputText id="soyad" required="false"
+								style="width: 100%;font-weight:bold;"
+								validatorMessage="Lütfen soyad giriniz."
+								value="#{kisiController.kisi.soyad}">
+							</p:inputText>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column colspan="2">
+							<p:commandButton id="btnKisiKaydet" icon="fa fa-plus"
+						value="Kişi Kaydet" ajax="true" resetValues="true"
+						 actionListener="#{kisiController.addKisi}" update="kisiListPanel" />
+						</p:column>
+					</p:row>
+				</p:panelGrid>
+		</p:dialog>
+		</h:form>
+	</ui:define>
+</ui:composition>
